@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+</head>
+<body>
+  <h1>Click Logs</h1>
+  <ul id="clickList"></ul>
+
+  <script>
+    // Φέρνει τα κλικ από τον backend και τα εμφανίζει
+    fetch('http://localhost:3000/api/clicks')
+      .then(response => response.json())
+      .then(clicks => {
+        const list = document.getElementById('clickList');
+        clicks.forEach(click => {
+          const li = document.createElement('li');
+          li.textContent = `Button ${click.buttonId} clicked at ${click.timestamp}`;
+          list.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Button Click Tracker</title>
+</head>
+<body>
+  <h1>Click the Buttons!</h1>
+  <button id="btn1">Button 1</button>
+  <button id="btn2">Button 2</button>
+
+  <script>
+    // Στέλνει κλικ στο backend
+    function trackClick(buttonId) {
+      const timestamp = new Date().toISOString();
+      fetch('http://localhost:3000/api/clicks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ buttonId, timestamp }),
+      })
+        .then(response => console.log('Click tracked:', buttonId))
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Προσθήκη event listeners στα κουμπιά
+    document.getElementById('btn1').addEventListener('click', () => trackClick('button1'));
+    document.getElementById('btn2').addEventListener('click', () => trackClick('button2'));
+  </script>
+</body>
+</html>
